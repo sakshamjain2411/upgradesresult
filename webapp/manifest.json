@@ -118,7 +118,20 @@
       }
     },
     "resources": {
-      "js": [],
+      "js": [
+        {
+          "uri": "libs/highcharts/highcharts.js"
+        },
+        {
+          "uri": "libs/highcharts/highcharts-3d.js"
+        },
+        {
+          "uri": "libs/highcharts/exporting.js"
+        },
+        {
+          "uri": "libs/highcharts/export-data.js"
+        }
+      ],
       "css": [
         {
           "uri": "css/style.css"

@@ -207,7 +207,8 @@ sap.ui.define([
 			oModelUpgradeRecruitREC.setSizeLimit(50000);
 			sap.ui.getCore().setModel(oModelUpgradeRecruitREC, "oModelUpgradeRecruitREC");
 	    	
-			var ODataModel = new sap.ui.model.odata.ODataModel("sap/sfsf_repo/service/services.xsodata/", true); // Changes made on 16/03/2017 and on 16/03/2018
+			let sURL = this.getOwnerComponent().getManifestObject().resolveUri("sap/sfsf_repo/service/services.xsodata/");
+			var ODataModel = new sap.ui.model.odata.ODataModel(sURL, true); // Changes made on 16/03/2017 and on 16/03/2018
 			ODataModel.setDefaultCountMode(false);
 			ODataModel.setDefaultBindingMode(sap.ui.model.BindingMode.TwoWay);
 			this.getView().setModel(ODataModel);
