@@ -1,0 +1,270 @@
+<mvc:View class="levelView" controllerName="upgradesresult.controller.Level" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:layout="sap.ui.layout" xmlns:com="sap.suite.ui.commons" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+	xmlns:viz.data="sap.viz.ui5.data" xmlns:fb="sap.ui.comp.filterbar" xmlns:viz="sap.viz.ui5.controls" xmlns:f="sap.f" xmlns="sap.m"
+	xmlns:html="http://www.w3.org/1999/xhtml" displayBlock="true">
+	<f:DynamicPage id="dynamicPageId" class="dynamicPageId" headerExpanded="true">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Text text="Best Practices Usage Dashboard"></Text>
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:header>
+			<f:DynamicPageHeader class="dynamicPageHeader" pinnable="true">
+				<f:content>
+					<fb:FilterBar reset="onReset" class="dynamicPageFilterBar" search="onSearch" useToolbar="false" showGoOnFB="false">
+						<fb:filterItems>
+							<fb:FilterItem name="A" label="Version">
+								<fb:control>
+									<!--<ComboBox id="ddlVersion" class="ddlVersion" items="{path:'/stlist'}" change="ddlVersionChanged" selectedKey="Version">-->
+									<!--	<core:ListItem key="{versionPara}" text="{version}"/>-->
+									<!--</ComboBox>-->
+									<Select id="ddlVersion" class="ddlVersion" items="{path:'/stlist'}" change="ddlVersionChanged" selectedKey="Version">
+										<core:ListItem key="{versionPara}" text="{version}"/>
+									</Select>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="B" label="Date Range">
+								<fb:control>
+									<DateRangeSelection id="dateviewrange" class="DRS2" delimiter="{path:'dateModel>/delimiterDRS1'}"
+										dateValue="{path:'dateModel>/dateValueDRS1'}" secondDateValue="{path:'dateModel>/secondDateValueDRS1'}"
+										displayFormat="{path:'dateModel>/dateFormatDRS1'}" change="UpdateDateRange"
+										valueStateText="Selected Date Range cannont be greater than Current Date."/>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="C" label="Time Segments">
+								<fb:control>
+									<SegmentedButton id="dateview" class="segmentedDate" selectedButton="btn3Month">
+										<Button id="btn1Day" text="1D" press="UpdateGUIGraphsdate"/>
+										<Button id="btn1Month" text="1M" press="UpdateGUIGraphsdate"/>
+										<Button id="btn3Month" text="3M" press="UpdateGUIGraphsdate"/>
+										<Button id="btn6Month" text="6M" press="UpdateGUIGraphsdate"/>
+										<Button id="btn1Year" text="1Y" press="UpdateGUIGraphsdate"/>
+										<Button id="btn2Year" text="All" press="UpdateGUIGraphsdate"/>
+									</SegmentedButton>
+								</fb:control>
+							</fb:FilterItem>
+							
+							<fb:FilterItem name="D" label="Product">
+								<fb:control>
+									<!--<ComboBox id="ddlProd" class="ddlVersion" enabled="false" selectedKey="EC">-->
+									<!--	<core:ListItem key="EC" text="Employee Central"/>-->
+									<!--</ComboBox>-->
+									<Select id="ddlProd" class="ddlVersion" selectedKey="All" change="ddlProductChanged">
+										<core:ListItem key="All" text="All"/>
+										<core:ListItem key="EC" text="Employee Central"/>
+										<core:ListItem key="RM" id="RM" text="Recruiting Management"/>
+										<core:ListItem key="SM" id="SM" text="Succession Management"/>
+										<core:ListItem key="PG" id="PG" text="Performance and Goals"/>
+										<core:ListItem key="CO" id="CO" text="Compensation"/>
+										<core:ListItem key="ON" id="ON" text="Onboarding"/>
+										
+									</Select>
+								</fb:control>
+							</fb:FilterItem>
+							
+							
+							
+							<fb:FilterItem name="E" label="Scope Applied">
+								<fb:control>
+									<Select id="ddlDeploy" class="ddlVersion" selectedKey="BP" change="ddlDeployChanged">
+										<core:ListItem key="All" text="All"/>
+										<core:ListItem key="BP" text="Best Practices"/>
+										<core:ListItem key="CUST" text="Partner"/>
+									</Select>
+								</fb:control>
+							</fb:FilterItem>
+							
+							
+						</fb:filterItems>
+					</fb:FilterBar>
+				</f:content>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			<HBox class="hBoxUpgrade">
+				<VBox class="hBoxSmallTiles widthauto">
+						<GenericTile size="M" header="# Configuration Block Runs" class="countTile" frameType="OneByOne">
+							<tileContent>
+								<TileContent footer="" class="" unit="">
+									<content>
+										<HBox class="overviewPictoTile">
+											<Image class="imageSmallTiles1" densityAware="false" width="70px" height="70px" src="/sap/fiori/actionresult/images/overview_orange.png"></Image>
+											<NumericContent id="subTextSmallTiles2Top" class="subTextSmallTiles1TopTile" scale="" value="" valueColor="Critical"/>
+										</HBox>
+									</content>
+								</TileContent>
+							</tileContent>
+						</GenericTile>
+						
+						<GenericTile size="M" header="Trending" class="pickListTile" frameType="OneByOne">
+							<tileContent>
+								<TileContent class="custListContentTile" footer="" unit="">
+									<content>
+										<VBox class="trendVBox">
+											<HBox  class="trendHBox">
+												<Text text="Trending" class="trendingText"></Text>
+											<Button icon="sap-icon://download" class="export" press="onExportList"/>	
+											</HBox>
+											
+										<Table class="trendTable" showNoData="false">
+											<columns>
+												<Column minScreenWidth="" demandPopin="false" mergeDuplicates="true">
+													<Bar class="barTableHead">
+														<contentLeft>
+															<Text text="Configuration Block"/>
+														</contentLeft>
+														<contentRight>
+															<Text text="Count"/>
+														</contentRight>
+													</Bar>
+												</Column>
+											</columns>
+										</Table>
+										<ScrollContainer id="tableScUpgrade" width="100%" height="" horizontal="false" vertical="true">
+											<Table id="listTableListUpgrade" inset="false" class="tableList" items="{path: '/splist'}">
+												<columns>
+													<Column></Column>
+												</columns>
+												<items>
+													<ColumnListItem>
+														<cells>
+															<Bar class="tableBarTrend">
+																<contentLeft>
+																	<Text text="{path:'element'}"></Text>
+																</contentLeft>
+																<contentRight>
+																	<Text text="{path:'count'}"></Text>
+																</contentRight>
+															</Bar>
+															<!--<Text text="{path:'element'}"/>-->
+														</cells>
+														<!--<cells>-->
+														<!--	<Text text="{path:'count'}"/>-->
+														<!--</cells>-->
+													</ColumnListItem>
+												</items>
+											</Table>
+										</ScrollContainer>
+										</VBox>
+										
+									</content>
+								</TileContent>
+							</tileContent>
+						</GenericTile>
+						
+					</VBox>
+				<VBox class="vboxTiles">
+					
+					<VBox class="barChartVBox">
+						<HBox class="hboxBtn">
+							<Text class="noCust" text="Configuration Block Usage"></Text>	
+							<ToggleButton  icon="sap-icon://full-screen" class="export" press="onEnlargeHC"/>
+						</HBox>
+						
+						<!--<layout:FixFlex id='chartFixFlexHBar' class='chartFixFlexHBar'>-->
+						<!--	<layout:flexContent>-->
+						<!--		<viz:Popover id="idPopOver"></viz:Popover>-->
+						<!--		<com:ChartContainer class="chartCont" showLegendButton='false' showFullScreen='true' showZoom='false'>-->
+						<!--			<com:content>-->
+						<!--				<com:ChartContainerContent>-->
+						<!--					<com:content>-->
+												
+						<!--						<viz:VizFrame id="HBarChart" class="HBarChart" selectData="onSelect" deselectData="onDeselect" uiConfig="{applicationSet:'fiori'}"-->
+						<!--							width="98%" vizType='column' vizProperties="{title:{text:''}}">-->
+						<!--							<viz:dataset>-->
+						<!--								<viz.data:FlattenedDataset data="{/data}">-->
+						<!--									<viz.data:dimensions>-->
+						<!--										<viz.data:DimensionDefinition name="Scope Item" value="{element}"/>-->
+						<!--									</viz.data:dimensions>-->
+						<!--									<viz.data:measures>-->
+						<!--										<viz.data:MeasureDefinition value="{count}" name="Count"/>-->
+						<!--									</viz.data:measures>-->
+						<!--								</viz.data:FlattenedDataset>-->
+						<!--							</viz:dataset>-->
+						<!--							<viz:feeds>-->
+						<!--								<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Count"/>-->
+						<!--								<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Scope Item"/>-->
+						<!--							</viz:feeds>-->
+						<!--						</viz:VizFrame>-->
+												
+						<!--					</com:content>-->
+						<!--				</com:ChartContainerContent>-->
+						<!--			</com:content>-->
+						<!--		</com:ChartContainer>-->
+						<!--	</layout:flexContent>-->
+						<!--</layout:FixFlex>-->
+						
+						<core:HTML id="repoContReviewUpgrade" content='&lt;div classs=&quot;repoContainerReviewUpgradeChart&quot; id=&quot;repoContainerReviewUpgrade&quot;&gt;&lt;/div&gt;'></core:HTML>
+					</VBox>
+					
+					<VBox class="">
+						<HBox class="barHead">
+							<Text class="textHeadFontLeft" text="Daily Breakdown"/>
+							<Text class="textHeadFontRight" text="Last 30 Days"/>
+						</HBox>
+						<core:HTML id="repoContReviewUpgradeDay" content='&lt;div id=&quot;repoContainerReviewUpgradeDay&quot;&gt;&lt;/div&gt;'></core:HTML>
+					</VBox>
+					
+				</VBox>
+					<VBox class="vboxTable">
+						<HBox class="tableHBox">
+							<Text class="noCustList" text="Customers"></Text>
+							<Button icon="sap-icon://download" class="export" press="onExport"/>
+						</HBox>
+						<SearchField liveChange="onSearch" width="100%" id="searchfield" class="searchfield" placeholder="Search Customers"/>
+						<MultiComboBox id="ddlSP" width="100%" selectedKeys="All" class="klz_popcombo" items="{path:'/splist'}" selectionChange="ddlSPChanged">
+							<core:ListItem key="{BPKEY}" text="{BP}"/>
+						</MultiComboBox>
+						<Table showNoData="false">
+							<columns>
+								<Column minScreenWidth="" demandPopin="false" mergeDuplicates="true">
+									<Bar class="barTableHead">
+										<contentLeft>
+											<Text text="Company Name"/>
+										</contentLeft>
+										<contentRight>
+											<Text text="Time Stamp (Last Run)"/>
+										</contentRight>
+									</Bar>
+								</Column>
+							</columns>
+						</Table>
+						<ScrollContainer id="tableSc" width="100%" height="" horizontal="false" vertical="true">
+							<Table id="listTable" inset="false" growing="true" growingScrollToLoad="true" growingThreshold="12" class="table" items="{path: '/stlistUser'}">
+								<columns>
+									<Column></Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells>
+											<Panel expandable="true" expanded="false">
+												<headerToolbar>
+													<Toolbar height="3rem">
+														<Bar>
+															<contentLeft>
+																<!--<Text text="{val}"/>-->
+																<Text text="{path:'val',formatter: '.defaultname' }"/>
+															</contentLeft>
+															<contentRight>
+																<Text text="{time}"/>
+															</contentRight>
+														</Bar>
+													</Toolbar>
+												</headerToolbar>
+												<content>
+													<!--<Text text="{upgradeDisplay}"/>-->
+													<Text text="{path:'upgradeDisplay',formatter: '.boldName' }"/>
+												</content>
+											</Panel>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</ScrollContainer>
+					</VBox>
+			</HBox>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>
