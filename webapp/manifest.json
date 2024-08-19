@@ -3,12 +3,11 @@
   "sap.app": {
     "id": "upgradesresult",
     "type": "application",
-    "i18n": "i18n/i18n.properties",
     "applicationVersion": {
       "version": "1.0.0"
     },
     "title": "Configuration Block Usage",
-    "description": "{{appDescription}}",
+    "description": "HXM Usage Dashboard",
     "sourceTemplate": {
       "id": "ui5template.basicSAPUI5ApplicationProject",
       "version": "1.40.12"
@@ -29,8 +28,9 @@
         "upgradesresult-display": {
           "semanticObject": "upgradesresult",
           "action": "display",
-          "title": "{{flpTitle}}",
-          "subTitle": "{{flpSubtitle}}",
+          "title": "Configuration Block Usage",
+          "subTitle": "HXM Usage Dashboard",
+          "icon": "sap-icon://key-user-settings",
           "signature": {
             "parameters": {},
             "additionalParameters": "allowed"
@@ -110,12 +110,6 @@
       "cozy": true
     },
     "models": {
-      "i18n": {
-        "type": "sap.ui.model.resource.ResourceModel",
-        "settings": {
-          "bundleName": "upgradesresult.i18n.i18n"
-        }
-      }
     },
     "resources": {
       "js": [
